@@ -5,12 +5,6 @@
  */
 #pragma once
 
-/** Array base class.
- *
- * Empty struct used to identify child's container type.
- */
-typedef struct std_array_base_class {} std_array_base_class;
-
 #define std_container_at(T_, c_, pos_) _Generic(((c_.parent_class_obj)+0), \
     std_array_base_class*: std_array_##T_##_at, \
     std_array_base_class const*: std_array_##T_##_at \
@@ -22,7 +16,8 @@ typedef struct std_array_base_class {} std_array_base_class;
 )(c_, pos_)
 
 #define std_container_push_back(T_, c_, val_) _Generic(((c_.parent_class_obj)+0), \
-    std_array_base_class*: std_array_##T_##_push_back \
+    std_array_base_class*: std_array_##T_##_push_back, \
+    std_list_base_class*: std_list_##T_##_push_back \
 )(c_, val_)
 
 #define std_container_front(T_, c_) _Generic(((c_.parent_class_obj)+0), \

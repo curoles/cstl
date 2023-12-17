@@ -1,5 +1,5 @@
 /**@file
- * @brief Array container.
+ * @brief Double linked List container.
  * @author Igor Lesik 2023
  *
  */
@@ -8,24 +8,40 @@
 #include "std/gnu_attributes.h"
 #include "std/glue_macro.h"
 
-#ifndef std_array
-#define std_array(t_) GLUE2(std_array_, t_)
+#ifndef std_list
+#define std_list(t_) GLUE2(std_list_, t_)
 #endif
-#ifndef std_array_fn
-#define std_array_fn(t_, fn_) GLUE4(std_array_, t_, _, fn_)
+#ifndef std_list_node
+#define std_list_node(t_) GLUE2(std_list_node_, t_)
+#endif
+#ifndef std_list_fn
+#define std_list_fn(t_, fn_) GLUE4(std_list_, t_, _, fn_)
 #endif
 
-/** Array container non-resizable view.
+typedef struct std_list_node(T) std_list_node(T);
+
+struct std_list_node(T)
+{
+    std_list_node(T)* next;
+    std_list_node(T)* prev;
+    T val;
+};
+
+/** Double linked list container.
  *
  */
-typedef struct std_array(T)
+typedef struct std_list(T)
 {
-    size_t size;
-    size_t capacity;
-    T* data; //< raw data C array
+    std_list_node(T)* head;
 
-} std_array(T);
+} std_list(T);
 
+static inline GNU_ATTR_ARG_NONNULL(1)
+std_list(T)* std_list_fn(T,push_back)(std_list(T)* a, T val) {
+    return a;
+}
+
+#if 0
 static inline GNU_ATTR_NODISCARD GNU_ATTR_ARG_NONNULL(1)
 T std_array_fn(T,at)(std_array(T) const* a, size_t pos) {
     assert(pos < a->size && a->size <= a->capacity);
@@ -109,4 +125,4 @@ std_iterator(T) std_array_fn(T,end)(std_array(T)* a) {
         .next = std_array_fn(T,iterator_next)
     };
 }
-
+#endif

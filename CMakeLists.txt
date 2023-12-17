@@ -22,7 +22,7 @@ set(CMAKE_C_EXTENSIONS ON)
 #    endif()
 #endif()
 
-set(CMAKE_C_FLAGS "-std=gnu2x -O3 -Wall -Werror")
+set(CMAKE_C_FLAGS "-std=gnu17 -O3 -Wall -Werror")
 
 include_directories(./include)
 

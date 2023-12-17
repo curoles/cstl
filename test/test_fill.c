@@ -1,4 +1,3 @@
-#include "std/container.h"
 
 #define T int
 #include "std/iterator.h"
@@ -21,8 +20,8 @@ void test_fill_array(void)
 
 
     std_algorithm_fill(int)(
-        std_container_begin(int,&a),
-        std_container_end(int,&a),
+        std_array_fn(int,begin)(&a),
+        std_array_fn(int,end)(&a),
         777);
 
     std_array_for_all(it, &a) {
