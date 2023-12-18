@@ -9,6 +9,7 @@ include(CTest)
 
 set(TESTS
     test_array
+    test_list
     test_fill
 )
 

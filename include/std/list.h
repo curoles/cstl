@@ -7,6 +7,7 @@
 #include "std/defines.h"
 #include "std/gnu_attributes.h"
 #include "std/glue_macro.h"
+#include "std/allocator.h"
 
 #ifndef std_list
 #define std_list(t_) GLUE2(std_list_, t_)
@@ -33,12 +34,22 @@ struct std_list_node(T)
 typedef struct std_list(T)
 {
     std_list_node(T)* head;
+    std_allocator* allocator;
 
 } std_list(T);
 
 static inline GNU_ATTR_ARG_NONNULL(1)
-std_list(T)* std_list_fn(T,push_back)(std_list(T)* a, T val) {
-    return a;
+size_t std_list_fn(T,size)(std_list(T)* l) {
+    size_t size = 0;
+    for (std_list_node(T)* node = l->head; node != nullptr ; node = node->next) {
+        size++;
+    }
+    return size;
+}
+
+static inline GNU_ATTR_ARG_NONNULL(1)
+std_list(T)* std_list_fn(T,push_back)(std_list(T)* l, T val) {
+    return l;
 }
 
 #if 0
