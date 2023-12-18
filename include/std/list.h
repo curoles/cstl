@@ -47,6 +47,18 @@ size_t std_list_fn(T,size)(std_list(T)* l) {
     return size;
 }
 
+static inline GNU_ATTR_NODISCARD GNU_ATTR_ARG_NONNULL(1)
+T* std_list_fn(T,ref_at)(std_list(T) * l, size_t pos) {
+    size_t current_pos = 0;
+    for (std_list_node(T)* node = l->head; node != nullptr ; node = node->next) {
+        if (current_pos == pos) {
+            return &node->val;
+        }
+        current_pos++;
+    }
+    return nullptr;
+}
+
 static inline GNU_ATTR_ARG_NONNULL(1)
 std_list(T)* std_list_fn(T,push_back)(std_list(T)* l, T val) {
     return l;
@@ -57,12 +69,6 @@ static inline GNU_ATTR_NODISCARD GNU_ATTR_ARG_NONNULL(1)
 T std_array_fn(T,at)(std_array(T) const* a, size_t pos) {
     assert(pos < a->size && a->size <= a->capacity);
     return a->data[pos];
-}
-
-static inline GNU_ATTR_NODISCARD GNU_ATTR_ARG_NONNULL(1)
-T* std_array_fn(T,ref_at)(std_array(T) * a, size_t pos) {
-    assert(pos < a->size && a->size <= a->capacity);
-    return &a->data[pos];
 }
 
 static inline GNU_ATTR_NODISCARD GNU_ATTR_ARG_NONNULL(1)
