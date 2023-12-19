@@ -39,6 +39,25 @@ typedef struct std_list(T)
 } std_list(T);
 
 static inline GNU_ATTR_ARG_NONNULL(1)
+std_list_node(T)* std_list_fn(T,front)(std_list(T)* l) {
+    return l->head;
+}
+
+static inline GNU_ATTR_ARG_NONNULL(1)
+std_list_node(T)* std_list_fn(T,back)(std_list(T)* l) {
+    std_list_node(T)* node = l->head;
+    while (node != nullptr && node->next != nullptr) {
+        node = node->next;
+    }
+    return node;
+}
+
+static inline GNU_ATTR_ARG_NONNULL(1)
+size_t std_list_fn(T,empty)(std_list(T)* l) {
+    return l->head == nullptr;
+}
+
+static inline GNU_ATTR_ARG_NONNULL(1)
 size_t std_list_fn(T,size)(std_list(T)* l) {
     size_t size = 0;
     for (std_list_node(T)* node = l->head; node != nullptr ; node = node->next) {
@@ -60,7 +79,7 @@ T* std_list_fn(T,ref_at)(std_list(T)* l, size_t pos) {
 }
 
 static inline GNU_ATTR_ARG_NONNULL(1)
-void std_list_fn(T,free)(std_list(T)* l) {
+void std_list_fn(T,clear)(std_list(T)* l) {
     for (std_list_node(T)* node = l->head; node != nullptr; ) {
         if (node->next) {
             node->next->prev = nullptr;

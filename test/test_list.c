@@ -19,6 +19,7 @@ static void test_push_front(void)
     std_list(int) list = {.head = nullptr, .allocator = (std_allocator*)&allocator};
 
     assert(std_list_fn(int,size)(&list) == 0);
+    assert(std_list_fn(int,empty)(&list) == true);
 
     for (unsigned int i = 0; i < 10; i++)
     {
@@ -28,8 +29,10 @@ static void test_push_front(void)
         assert(*std_list_fn(int,ref_at)(&list, 0) == i);
     }
 
-    std_list_fn(int,free)(&list);
+    assert(std_list_fn(int,empty)(&list) == false);
+    std_list_fn(int,clear)(&list);
     assert(std_list_fn(int,size)(&list) == 0);
+    assert(std_list_fn(int,empty)(&list) == true);
 }
 
 #if 0
