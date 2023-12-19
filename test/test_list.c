@@ -1,5 +1,7 @@
 #include "std/clib_allocator.h"
 
+#include <stdio.h>
+
 #define T int
 #include "std/iterator.h"
 #include "std/list.h"
@@ -12,22 +14,26 @@
 
 static std_clib_allocator allocator = STD_CLIB_ALLOCATOR_INIT;
 
-void test_push_back(void)
+static void test_push_front(void)
 {
     std_list(int) list = {.head = nullptr, .allocator = (std_allocator*)&allocator};
 
     assert(std_list_fn(int,size)(&list) == 0);
-    /*assert(a.size == 4);
-    std_array_fn(int,push_back)(&a, 44);
-    assert(a.size == 5);
-    assert(std_array_int_at(&a, 4) == 44);
 
-    assert(*std_array_int_front(&a) == 0);
-    assert(*std_array_int_back(&a) == 44);*/
+    for (unsigned int i = 0; i < 10; i++)
+    {
+        std_list_fn(int,push_front)(&list, i);
+        assert(std_list_fn(int,size)(&list) == (i + 1));
+        //printf("%u: %d\n", i, *(std_list_fn(int,ref_at)(&list,0)));
+        assert(*std_list_fn(int,ref_at)(&list, 0) == i);
+    }
+
+    std_list_fn(int,free)(&list);
+    assert(std_list_fn(int,size)(&list) == 0);
 }
 
 #if 0
-void test_at(void)
+static void test_at(void)
 {
     int data[10] = {0, 1, 2, 3};
     std_array(int) a = {.data=data, .capacity=10, .size=4};
@@ -42,7 +48,7 @@ void test_at(void)
     assert(*std_array_int_ref_at(&a, 1) == 11);
 }
 
-void test_fill(void)
+static void test_fill(void)
 {
     int data[100] = {};
     std_array(int) a = {.data=data, .capacity=100, .size=100};
@@ -65,9 +71,7 @@ void test_fill(void)
 
 int main(void)
 {
-    //test_at();
-    //test_push_back();
-    //test_fill();
+    test_push_front();
 
     return 0;
 }

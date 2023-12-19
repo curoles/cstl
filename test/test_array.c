@@ -9,7 +9,7 @@
 #include "std/array.h"
 #undef T
 
-void test_at(void)
+static void test_at(void)
 {
     int data[10] = {0, 1, 2, 3};
     std_array(int) a = {.data=data, .capacity=10, .size=4};
@@ -24,7 +24,7 @@ void test_at(void)
     assert(*std_array_int_ref_at(&a, 1) == 11);
 }
 
-void test_push_back(void)
+static void test_push_back(void)
 {
     int data[10] = {0, 1, 2, 3};
     std_array(int) a = {.data=data, .capacity=10, .size=4};
@@ -38,7 +38,7 @@ void test_push_back(void)
     assert(*std_array_int_back(&a) == 44);
 }
 
-void test_fill(void)
+static void test_fill(void)
 {
     int data[100] = {};
     std_array(int) a = {.data=data, .capacity=100, .size=100};

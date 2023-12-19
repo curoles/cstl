@@ -48,9 +48,9 @@ size_t std_list_fn(T,size)(std_list(T)* l) {
 }
 
 static inline GNU_ATTR_NODISCARD GNU_ATTR_ARG_NONNULL(1)
-T* std_list_fn(T,ref_at)(std_list(T) * l, size_t pos) {
+T* std_list_fn(T,ref_at)(std_list(T)* l, size_t pos) {
     size_t current_pos = 0;
-    for (std_list_node(T)* node = l->head; node != nullptr ; node = node->next) {
+    for (std_list_node(T)* node = l->head; node != nullptr; node = node->next) {
         if (current_pos == pos) {
             return &node->val;
         }
@@ -60,9 +60,44 @@ T* std_list_fn(T,ref_at)(std_list(T) * l, size_t pos) {
 }
 
 static inline GNU_ATTR_ARG_NONNULL(1)
-std_list(T)* std_list_fn(T,push_back)(std_list(T)* l, T val) {
+void std_list_fn(T,free)(std_list(T)* l) {
+    for (std_list_node(T)* node = l->head; node != nullptr; ) {
+        if (node->next) {
+            node->next->prev = nullptr;
+        }
+        std_list_node(T)* node_to_remove = node;
+        node = node->next;
+        l->head = node;
+        l->allocator->free(node_to_remove);
+    }
+}
+
+static inline GNU_ATTR_ARG_NONNULL(1)
+std_list(T)* std_list_fn(T,push_front)(std_list(T)* l, T val) {
+    std_list_node(T)* new_node = l->allocator->allocate(1, sizeof(std_list_node(T)));
+    assert(new_node != nullptr);
+    new_node->val = val;
+    std_list_node(T)* old_head = l->head;
+    assert(old_head == nullptr || old_head->prev == nullptr);
+    l->head = new_node;
+    new_node->prev = nullptr;
+    new_node->next = old_head;
+    if (old_head) old_head->prev = new_node;
     return l;
 }
+
+#if 0
+static inline GNU_ATTR_ARG_NONNULL(1)
+std_list(T)* std_list_fn(T,push_back)(std_list(T)* l, T val) {
+    std_list_node(T)* new_node = l->allocator.allocate(1, sizeof(std_list_node(T)));
+    new_node->val = val;
+    std_list_node(T)* tail = std_list_fn(T,back)(l);
+    assert(tail->next == nullptr);
+    tail->next = new_node;
+    new_node->prev = tail;
+    new_node->next = nullptr;
+}
+#endif
 
 #if 0
 static inline GNU_ATTR_NODISCARD GNU_ATTR_ARG_NONNULL(1)

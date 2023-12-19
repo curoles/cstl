@@ -4,10 +4,10 @@
 #include "std/array.h"
 #include "std/algorithm/fill.h"
 
-int data[100] = {};
-std_array(int) a = {.data=data, .capacity=100, .size=50};
+static int data[100] = {};
+static std_array(int) a = {.data=data, .capacity=100, .size=50};
 
-void test_fill_array(void)
+static void test_fill_array(void)
 {
     std_algorithm_fill(int)(
         std_array_fn(int,begin)(&a),
