@@ -13,6 +13,7 @@ set(TESTS
     test_fill
     test_count
     test_reduce
+    test_la_vec_ops
 )
 
 #set(matrix_cc_flags -fopenmp)

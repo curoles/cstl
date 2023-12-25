@@ -13,11 +13,11 @@ static inline
 T std_algorithm_reduce(T)(
     std_iterator(T) begin,
     std_iterator(T) end,
+    T initial_value,
     T (*BinaryOp)(T*,T*)
 )
 {
-    T val = *begin.ptr;
-    begin.next(&begin);
+    T val = initial_value;
     while (begin.ptr != end.ptr) {
         val = BinaryOp(&val, begin.ptr);
         begin.next(&begin);

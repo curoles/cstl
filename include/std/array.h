@@ -81,6 +81,12 @@ size_t std_array_fn(T,size)(std_array(T)* a) {
 #define std_array_for_all(p_, a_) \
     std_array_for_each(p_, &(a_)->data[0], &(a_)->data[(a_)->size])
 
+#define std_array_for_each_index(i_, begin_, end_) \
+    for (size_t i_ = begin_, i_##sz = end_; i_ < i_##sz; i_++)
+
+#define std_array_for_all_index(i_, a_) \
+    std_array_for_each_index(i_, 0, (a_)->size)
+
 static inline GNU_ATTR_ARG_NONNULL(1)
 void std_array_fn(T,fill)(std_array(T)* a, T val) {
     std_array_for_all(it, a) {

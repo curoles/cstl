@@ -27,6 +27,7 @@ static void test_add_reduce_array(void)
     int ra = std_algorithm_reduce(int)(
         std_array_fn(int,begin)(&a),
         std_array_fn(int,end)(&a),
+        0,
         int_add);
 
     assert(ra == (123 * a.size));
