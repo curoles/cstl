@@ -88,7 +88,7 @@ void std_array_fn(T,fill)(std_array(T)* a, T val) {
     }
 }
 
-static inline GNU_ATTR_ARG_NONNULL(1)
+static inline GNU_ATTR_ARG_NONNULL(1) GNU_ATTR_ALWAYS_INLINE
 T* std_array_fn(T,iterator_next)(std_iterator(T)* it) {
     it->ptr++;
     return it->ptr;

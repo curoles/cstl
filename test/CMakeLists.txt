@@ -11,6 +11,8 @@ set(TESTS
     test_array
     test_list
     test_fill
+    test_count
+    test_reduce
 )
 
 #set(matrix_cc_flags -fopenmp)
