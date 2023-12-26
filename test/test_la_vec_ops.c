@@ -13,7 +13,7 @@
 
 static void test_la_vec_scale(void)
 {
-    int data[4] = {0, 1, 2, 3};
+    alignas(128) int data[4] = {0, 1, 2, 3};
     std_array(int) a = {.data=data, .capacity=4, .size=4};
 
     std_array_fn(int,la_vec_scale)(&a, 2);
@@ -26,10 +26,10 @@ static void test_la_vec_scale(void)
 
 static void test_la_vec_add(void)
 {
-    int data1[4] = {0, 1, 2, 3};
+    alignas(128) int data1[4] = {0, 1, 2, 3};
     std_array(int) a = {.data=data1, .capacity=4, .size=4};
 
-    int data2[4] = {0, 1, 2, 3};
+    alignas(128) int data2[4] = {0, 1, 2, 3};
     std_array(int) b = {.data=data2, .capacity=4, .size=4};
 
     std_array_fn(int,la_vec_add)(&a, &b);

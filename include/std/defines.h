@@ -19,4 +19,5 @@
 
 #if __STDC_VERSION__ <= STDC17
 #define nullptr NULL
+#define alignas _Alignas
 #endif

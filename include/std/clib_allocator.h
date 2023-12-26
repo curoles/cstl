@@ -45,3 +45,14 @@ void std_clib_allocator_init(std_clib_allocator* allocator)
     allocator->method.reallocate = std_clib_reallocate;
     allocator->method.free = std_clib_free;
 }
+
+//FIXME TODO
+typedef struct std_clib_aligned_allocator {
+    std_allocator method;
+} std_clib_aligned_allocator;
+
+static inline GNU_ATTR_NODISCARD
+void* std_clib_aligned_allocate(size_t count, size_t value_size)
+{
+    return aligned_alloc(128, count * value_size);
+}
